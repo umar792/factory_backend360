@@ -31,7 +31,7 @@ module.exports = {
       }
       if (req.user.role === "superAdmin") {
         if (req.body.file) {
-          var mycloud = await cloudinary.v2.uploader.upload(file, {
+          var mycloud = await cloudinary.v2.uploader.upload(req.body.file, {
             folder: "workorder",
             resource_type: "auto",
           });
@@ -50,7 +50,7 @@ module.exports = {
         });
       } else {
         if (req.body.file) {
-          var mycloud = await cloudinary.v2.uploader.upload(file, {
+          var mycloud = await cloudinary.v2.uploader.upload(req.body.file, {
             folder: "workorder",
             resource_type: "auto",
           });
@@ -108,7 +108,7 @@ module.exports = {
         });
       }
       if (req.body.file) {
-        var mycloud = await cloudinary.v2.uploader.upload(file, {
+        var mycloud = await cloudinary.v2.uploader.upload(req.body.file, {
           folder: "workorder",
           resource_type: "auto",
         });
