@@ -27,6 +27,10 @@ const WorkOrderSchmea = new Schema({
     type: monggose.Types.ObjectId,
     ref: "User",
   },
+  file: {
+    public_id: String,
+    url: String,
+  },
 });
 const WorkOrderModal = monggose.model("workorder", WorkOrderSchmea);
 module.exports = WorkOrderModal;
