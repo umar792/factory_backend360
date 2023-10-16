@@ -2,6 +2,20 @@ const express = require("express");
 const app = express();
 const cloudinary = require("cloudinary");
 
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+  appId: "1689461",
+  key: "bb65a6ba6672994bfb77",
+  secret: "8e87cb3663bd322bcfb8",
+  cluster: "ap2",
+  useTLS: true,
+});
+
+pusher.trigger("my-channel", "my-event", {
+  message: "hello world",
+});
+
 // ------cors
 const cors = require("cors");
 app.use(cors());
