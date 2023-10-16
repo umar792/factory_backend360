@@ -30,6 +30,12 @@ module.exports = {
         });
       }
       if (req.user.role === "superAdmin") {
+        if (req.body.file) {
+          var mycloud = await cloudinary.v2.uploader.upload(file, {
+            folder: "workorder",
+            resource_type: "auto",
+          });
+        }
         await WorkOrderModal.create({
           title,
           description,
@@ -37,8 +43,18 @@ module.exports = {
           repotedOn,
           user: req.user._id,
           owner: req.user._id,
+          file: {
+            public_id: mycloud.public_id,
+            url: mycloud.secure_url,
+          },
         });
       } else {
+        if (req.body.file) {
+          var mycloud = await cloudinary.v2.uploader.upload(file, {
+            folder: "workorder",
+            resource_type: "auto",
+          });
+        }
         await WorkOrderModal.create({
           title,
           description,
@@ -46,6 +62,10 @@ module.exports = {
           repotedOn,
           user: req.user._id,
           owner: req.user.user,
+          file: {
+            public_id: mycloud.public_id,
+            url: mycloud.secure_url,
+          },
         });
       }
 
@@ -87,6 +107,12 @@ module.exports = {
           message: "Please enter Repoter Name",
         });
       }
+      if (req.body.file) {
+        var mycloud = await cloudinary.v2.uploader.upload(file, {
+          folder: "workorder",
+          resource_type: "auto",
+        });
+      }
       await WorkOrderModal.create({
         title,
         description,
@@ -94,6 +120,10 @@ module.exports = {
         repotedOn,
         user: req.org._id,
         owner: req.org._id,
+        file: {
+          public_id: mycloud.public_id,
+          url: mycloud.secure_url,
+        },
       });
 
       res.status(200).json({
