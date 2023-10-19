@@ -3,53 +3,129 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Box4Schema = new Schema({
-  documentedsafety: {
-    type: String,
-    required: [true, "Please Enter Is there a documented safety plan"],
+  Answer1: {
+    documentedsafety: {
+      type: String,
+      required: [true, "Please Enter Is there a documented safety plan"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  emergencycontactnumbers: {
-    type: String,
-    required: [true, "Please Enter Are all emergency contact numbers"],
+  Answer2: {
+    emergencycontactnumbers: {
+      type: String,
+      required: [true, "Please Enter Are all emergency contact numbers"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  documentedsafetymeeting: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is there a documented safety meeting minutes",
-    ],
+  Answer3: {
+    documentedsafetymeeting: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is there a documented safety meeting minutes",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  objectivesafetymetric: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Does the facility have an objective safety metric ( OIR)",
-    ],
+  Answer4: {
+    objectivesafetymetric: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Does the facility have an objective safety metric ( OIR)",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  safetincidentstracked: {
-    type: String,
-    required: [true, "Please Enter Are the safet incidents tracked"],
+
+  Answer5: {
+    safetincidentstracked: {
+      type: String,
+      required: [true, "Please Enter Are the safet incidents tracked"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  emergencyexitsclear: {
-    type: String,
-    required: [true, "Please Enter Are all emergency exits clear"],
+  Answer6: {
+    emergencyexitsclear: {
+      type: String,
+      required: [true, "Please Enter Are all emergency exits clear"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  extinguishers: {
-    type: String,
-    required: [true, "Please Enter Are all fire extinguishers"],
+  Answer7: {
+    extinguishers: {
+      type: String,
+      required: [true, "Please Enter Are all fire extinguishers"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  emergencyevacuationplan: {
-    type: String,
-    required: [true, "Please Enter emergency evacuation plan"],
+  Answer8: {
+    emergencyevacuationplan: {
+      type: String,
+      required: [true, "Please Enter emergency evacuation plan"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  amplelighting: {
-    type: String,
-    required: [true, "Please Enter ample lighting"],
+  Answer9: {
+    amplelighting: {
+      type: String,
+      required: [true, "Please Enter ample lighting"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  anyleaningpallets: {
-    type: String,
-    required: [true, "Please Enter any leaning pallets"],
+  Answer10: {
+    anyleaningpallets: {
+      type: String,
+      required: [true, "Please Enter any leaning pallets"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
+
   user: {
+    type: mongoose.Types.ObjectId,
+    ref: "user",
+  },
+  owner: {
     type: mongoose.Types.ObjectId,
     ref: "user",
   },

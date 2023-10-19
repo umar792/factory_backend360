@@ -3,14 +3,20 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Box9Schema = new Schema({
-  userobservations: {
-    type: String,
-    required: [
-      true,
-      "Please Enter This section is open and users can write down their own observations",
-    ],
+  Answer1: {
+    userobservations: {
+      type: String,
+      required: [
+        true,
+        "Please Enter This section is open and users can write down their own observations",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-
   user: {
     type: mongoose.Types.ObjectId,
     ref: "user",

@@ -3,51 +3,100 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Box7Schema = new Schema({
-  suffecientventilation: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is there suffecient ventilation in the warehouse",
-    ],
+  Answer1: {
+    suffecientventilation: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is there suffecient ventilation in the warehouse",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  inchesofspacebetween: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is there 12 inches of space between pallet rows",
-    ],
+  Answer2: {
+    inchesofspacebetween: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is there 12 inches of space between pallet rows",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  adequatelighting: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is there adequate lighting throughout the warehoused",
-    ],
+  Answer3: {
+    adequatelighting: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is there adequate lighting throughout the warehoused",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  temperatureandhumidity: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is the temperature and humidity within acceptable limits",
-    ],
+  Answer4: {
+    temperatureandhumidity: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is the temperature and humidity within acceptable limits",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  buildingclean: {
-    type: String,
-    required: [true, "Please Enter Is the building clean, dry and odourless"],
+  Answer5: {
+    buildingclean: {
+      type: String,
+      required: [true, "Please Enter Is the building clean, dry and odourless"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  moldmonitoringtraining: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is the mold monitoring training completed by all team members",
-    ],
+  Answer6: {
+    moldmonitoringtraining: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is the mold monitoring training completed by all team members",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  moldlogupdated: {
-    type: String,
-    required: [
-      true,
-      "Please Enter PIs the mold log updated and does the data look accurate",
-    ],
+  Answer7: {
+    moldlogupdated: {
+      type: String,
+      required: [
+        true,
+        "Please Enter PIs the mold log updated and does the data look accurate",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
 
   user: {

@@ -2,20 +2,6 @@ const express = require("express");
 const app = express();
 const cloudinary = require("cloudinary");
 
-// const Pusher = require("pusher");
-
-// const pusher = new Pusher({
-//   appId: "1689461",
-//   key: "bb65a6ba6672994bfb77",
-//   secret: "8e87cb3663bd322bcfb8",
-//   cluster: "ap2",
-//   useTLS: true,
-// });
-
-// pusher.trigger("my-channel", "my-event", {
-//   message: "hello world",
-// });
-
 // ------cors
 const cors = require("cors");
 app.use(cors());
@@ -43,48 +29,48 @@ const server = app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
 
-// // ========== socketio
-// const io = require("socket.io")(server, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST"],
-//   },
-// });
+// ========== socketio
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
-// const users = [];
-// const messageIdSet = new Set(); // Set to track unique _id values
+const users = [];
+const messageIdSet = new Set(); // Set to track unique _id values
 
-// io.on("connection", (socket) => {
-//   socket.on("allmessage", (allmessage) => {
-//     // Assuming 'allmessage' is an array of message objects
-//     const extractedUsers = allmessage.map((messagedata) => {
-//       const { _id, conversationId, message, senderId } = messagedata;
-//       const socit_id = socket.id;
+io.on("connection", (socket) => {
+  socket.on("allmessage", (allmessage) => {
+    // Assuming 'allmessage' is an array of message objects
+    const extractedUsers = allmessage.map((messagedata) => {
+      const { _id, conversationId, message, senderId } = messagedata;
+      const socit_id = socket.id;
 
-//       // Check if the _id is not already present in the Set
-//       if (!messageIdSet.has(_id)) {
-//         // If not present, add it to the Set and push the user data
-//         messageIdSet.add(_id);
-//         return { _id, conversationId, message, senderId, socit_id };
-//       }
-//       return null; // Return null for duplicates
-//     });
+      // Check if the _id is not already present in the Set
+      if (!messageIdSet.has(_id)) {
+        // If not present, add it to the Set and push the user data
+        messageIdSet.add(_id);
+        return { _id, conversationId, message, senderId, socit_id };
+      }
+      return null; // Return null for duplicates
+    });
 
-//     // Filter out null values (duplicates) and push the unique user data
-//     const uniqueUsers = extractedUsers.filter((user) => user !== null);
-//     users.push(...uniqueUsers);
+    // Filter out null values (duplicates) and push the unique user data
+    const uniqueUsers = extractedUsers.filter((user) => user !== null);
+    users.push(...uniqueUsers);
 
-//     io.emit("getallmessage", users);
-//   });
+    io.emit("getallmessage", users);
+  });
 
-//   socket.on("sendmessage", (conversationId, senderId, message) => {
-//     if (!messageIdSet.has(conversationId._id)) {
-//       messageIdSet.add(conversationId._id);
-//       users.push(conversationId);
-//       io.emit("getallmessage", users);
-//     }
-//   });
-// });
+  socket.on("sendmessage", (conversationId, senderId, message) => {
+    if (!messageIdSet.has(conversationId._id)) {
+      messageIdSet.add(conversationId._id);
+      users.push(conversationId);
+      io.emit("getallmessage", users);
+    }
+  });
+});
 
 // Function to generate a unique _id for new messages
 function generateUniqueId() {

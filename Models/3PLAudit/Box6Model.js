@@ -3,44 +3,92 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Box6Schema = new Schema({
-  documentedpickingandloading: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is there a documented picking and loading process",
-    ],
+  Answer1: {
+    documentedpickingandloading: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is there a documented picking and loading process",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  Documenttheloadingprocess: {
-    type: String,
-    required: [true, "Please Enter Document the loading process"],
+  Answer2: {
+    Documenttheloadingprocess: {
+      type: String,
+      required: [true, "Please Enter Document the loading process"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  loadingtimesrecorded: {
-    type: String,
-    required: [true, "Please Enter Are the loading times recorded"],
+  Answer3: {
+    loadingtimesrecorded: {
+      type: String,
+      required: [true, "Please Enter Are the loading times recorded"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  averageloadtime: {
-    type: String,
-    required: [true, "Please Enter average load time"],
+  Answer4: {
+    averageloadtime: {
+      type: String,
+      required: [true, "Please Enter average load time"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  documentedhandlelateloads: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is there a documented process to handle late loads and work ins",
-    ],
+  Answer5: {
+    documentedhandlelateloads: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is there a documented process to handle late loads and work ins",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  YTDOD: {
-    type: String,
-    required: [true, "Please Enter What is the YTD OD%"],
+  Answer6: {
+    YTDOD: {
+      type: String,
+      required: [true, "Please Enter What is the YTD OD%"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  ODunder90: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Please provide top three reasons if OD% is under 90%",
-    ],
+  Answer7: {
+    ODunder90: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Please provide top three reasons if OD% is under 90%",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-
   user: {
     type: mongoose.Types.ObjectId,
     ref: "user",

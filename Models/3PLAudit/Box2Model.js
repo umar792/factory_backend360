@@ -3,45 +3,106 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Box2Schema = new Schema({
-  buildingshared: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is This building shared with other customers",
-    ],
+  Answer1: {
+    buildingshared: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is This building shared with other customers",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  registrationofthisbuilding: {
-    type: String,
-    required: [
-      true,
-      "Please Enter Is the FDA registration of this building up to date",
-    ],
+  Answer2: {
+    registrationofthisbuilding: {
+      type: String,
+      required: [
+        true,
+        "Please Enter Is the FDA registration of this building up to date",
+      ],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  certificateofinsurance: {
-    type: String,
-    required: [true, "Please Enter Is the certificate of insurance current"],
+  Answer3: {
+    certificateofinsurance: {
+      type: String,
+      required: [true, "Please Enter Is the certificate of insurance current"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  Statepermitcurrent: {
-    type: String,
-    required: [true, "Please Enter Is the State permit current"],
+  Answer4: {
+    Statepermitcurrent: {
+      type: String,
+      required: [true, "Please Enter Is the State permit current"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  thirdpartaudit: {
-    type: String,
-    required: [true, "Please Enter Is the third part audit current"],
+  Answer5: {
+    thirdpartaudit: {
+      type: String,
+      required: [true, "Please Enter Is the third part audit current"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  Emergencycontact: {
-    type: String,
-    required: [true, "Please Enter Is the Emergency contact updated"],
+  Answer6: {
+    Emergencycontact: {
+      type: String,
+      required: [true, "Please Enter Is the Emergency contact updated"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  orgchart: {
-    type: String,
-    required: [true, "Please Enter Is the org chart current"],
+  Answer7: {
+    orgchart: {
+      type: String,
+      required: [true, "Please Enter Is the org chart current"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
-  criticalmanagementroles: {
-    type: String,
-    required: [true, "Please Enter Are all critical management roles filled"],
+  Answer8: {
+    criticalmanagementroles: {
+      type: String,
+      required: [true, "Please Enter Are all critical management roles filled"],
+    },
+    comment: String,
+    image: {
+      public_id: String,
+      url: String,
+    },
   },
+
   user: {
+    type: mongoose.Types.ObjectId,
+    ref: "user",
+  },
+  owner: {
     type: mongoose.Types.ObjectId,
     ref: "user",
   },
