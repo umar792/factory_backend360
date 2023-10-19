@@ -1,6 +1,9 @@
 const WorkOrderModal = require("../Models/workorderModal");
 const cloudinary = require("cloudinary");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7bcce18db9e7a9b0835a470079c661083da4d8f2
 module.exports = {
   // ------- create Work Order
   createWorkOrder: async (req, res) => {
@@ -33,7 +36,11 @@ module.exports = {
       }
       if (req.user.role === "superAdmin") {
         if (req.body.file) {
+<<<<<<< HEAD
           var mycloud = await cloudinary.v2.uploader.upload(file, {
+=======
+          var mycloud = await cloudinary.v2.uploader.upload(req.body.file, {
+>>>>>>> 7bcce18db9e7a9b0835a470079c661083da4d8f2
             folder: "workorder",
             resource_type: "auto",
           });
@@ -52,7 +59,11 @@ module.exports = {
         });
       } else {
         if (req.body.file) {
+<<<<<<< HEAD
           var mycloud = await cloudinary.v2.uploader.upload(file, {
+=======
+          var mycloud = await cloudinary.v2.uploader.upload(req.body.file, {
+>>>>>>> 7bcce18db9e7a9b0835a470079c661083da4d8f2
             folder: "workorder",
             resource_type: "auto",
           });
@@ -110,7 +121,11 @@ module.exports = {
         });
       }
       if (req.body.file) {
+<<<<<<< HEAD
         var mycloud = await cloudinary.v2.uploader.upload(file, {
+=======
+        var mycloud = await cloudinary.v2.uploader.upload(req.body.file, {
+>>>>>>> 7bcce18db9e7a9b0835a470079c661083da4d8f2
           folder: "workorder",
           resource_type: "auto",
         });
