@@ -4,7 +4,9 @@ const cloudinary = require("cloudinary");
 
 // ------cors
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+ origin: "*"
+}));
 
 // ---------dotenv
 require("dotenv").config();
