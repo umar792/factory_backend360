@@ -194,6 +194,10 @@ const Box5Schema = new Schema({
     type: mongoose.Types.ObjectId,
     ref: "user",
   },
+  owner: {
+    type: mongoose.Types.ObjectId,
+    ref: "organization",
+  },
 });
 const Box5Model = mongoose.model("box5", Box5Schema);
 module.exports = Box5Model;

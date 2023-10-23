@@ -142,7 +142,7 @@ const Box1Schema = new Schema(
     },
     owner: {
       type: mongoose.Types.ObjectId,
-      ref: "user",
+      ref: "organization",
     },
   },
   { timestamps: true }

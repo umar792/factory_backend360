@@ -6,38 +6,6 @@ module.exports = {
   // ---------- create Box8Model
   CreateBox8: async (req, res) => {
     try {
-      // const {
-      //   properfencingaroundtheyard,
-      //   mandoorsinthewarehouse,
-      //   yardfreeofdebris,
-      //   Dockloadlevelers,
-      //   PLprovided,
-      //   detailededtrailer,
-      //   trailerinformationincludetrailrnumber,
-      //   proofofdistributingapplicable,
-      // } = req.body;
-
-      // List of required fields
-      // const requiredFields = [
-      //   "properfencingaroundtheyard",
-      //   "mandoorsinthewarehouse",
-      //   "yardfreeofdebris",
-      //   "Dockloadlevelers",
-      //   "PLprovided",
-      //   "detailededtrailer",
-      //   "trailerinformationincludetrailrnumber",
-      //   "proofofdistributingapplicable",
-      // ];
-
-      // Check if any required field is missing
-      // const missingField = requiredFields.find((field) => !req.body[field]);
-      // if (missingField) {
-      //   return res.status(400).json({
-      //     success: false,
-      //     message: `Please provide ${missingField}`,
-      //   });
-      // }
-
       //   ------- find login user
       const isUser = await UserModel.findById(req.user._id);
       if (!isUser) {
@@ -47,24 +15,6 @@ module.exports = {
         });
       }
 
-      //    ================ create Box8Model
-
-      // await Box8Model.create({
-      //   properfencingaroundtheyard,
-      //   mandoorsinthewarehouse,
-      //   yardfreeofdebris,
-      //   Dockloadlevelers,
-      //   PLprovided,
-      //   detailededtrailer,
-      //   trailerinformationincludetrailrnumber,
-      //   proofofdistributingapplicable,
-      //   user: isUser._id,
-      // });
-
-      // res.status(200).json({
-      //   success: true,
-      //   message: "Your Answer Submit Successfuly",
-      // });
       // ================================
       const answers = [
         req.body.Answer1,
@@ -99,8 +49,65 @@ module.exports = {
         }
       }
 
-      req.body.user = req.user._id;
-      req.body.owner = req.user.user;
+      if (req.user.role == "superAdmin") {
+        req.body.user = req.user._id;
+        req.body.owner = req.user._id;
+      } else {
+        req.body.user = req.user._id;
+        req.body.owner = req.user.user;
+      }
+
+      await Box8Model.create(req.body);
+      res.status(200).json({
+        success: true,
+        message: "Data successfully submitted",
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  },
+  // ================
+  CreateBox8ORG: async (req, res) => {
+    try {
+      // ================================
+      const answers = [
+        req.body.Answer1,
+        req.body.Answer2,
+        req.body.Answer3,
+        req.body.Answer4,
+        req.body.Answer5,
+        req.body.Answer6,
+        req.body.Answer7,
+        req.body.Answer8,
+      ];
+      const uploadToCloudinary = async (img) => {
+        if (img) {
+          const mycloud = await cloudinary.v2.uploader.upload(img, {
+            folder: "3PL",
+            crop: "scale",
+            resource_type: "auto",
+          });
+          return {
+            public_id: mycloud.public_id,
+            url: mycloud.secure_url,
+          };
+        }
+        return null;
+      };
+
+      // Use a for loop to process each answer object
+      for (let i = 0; i < answers.length; i++) {
+        // Check if the answer object has 'img' property
+        if (answers[i] && answers[i].img) {
+          answers[i].image = await uploadToCloudinary(answers[i].img);
+        }
+      }
+
+      req.body.user = req.org._id;
+      req.body.owner = req.org._id;
 
       await Box8Model.create(req.body);
       res.status(200).json({

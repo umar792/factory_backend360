@@ -127,7 +127,7 @@ const Box4Schema = new Schema({
   },
   owner: {
     type: mongoose.Types.ObjectId,
-    ref: "user",
+    ref: "organization",
   },
 });
 const Box4Model = mongoose.model("box4", Box4Schema);

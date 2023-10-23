@@ -21,6 +21,10 @@ const Box9Schema = new Schema({
     type: mongoose.Types.ObjectId,
     ref: "user",
   },
+  owner: {
+    type: mongoose.Types.ObjectId,
+    ref: "organization",
+  },
 });
 const Box9Model = mongoose.model("box9", Box9Schema);
 module.exports = Box9Model;

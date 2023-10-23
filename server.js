@@ -4,9 +4,7 @@ const cloudinary = require("cloudinary");
 
 // ------cors
 const cors = require("cors");
-app.use(cors({
- origin: "*"
-}));
+app.use(cors());
 
 // ---------dotenv
 require("dotenv").config();
@@ -34,7 +32,7 @@ const server = app.listen(process.env.PORT, () => {
 // ========== socketio
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });

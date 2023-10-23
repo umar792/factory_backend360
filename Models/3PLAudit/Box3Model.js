@@ -49,7 +49,7 @@ const Box3Schema = new Schema({
   },
   owner: {
     type: mongoose.Types.ObjectId,
-    ref: "user",
+    ref: "organization",
   },
 });
 
