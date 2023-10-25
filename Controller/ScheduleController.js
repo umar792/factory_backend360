@@ -100,7 +100,11 @@ module.exports = {
           });
           res.status(200).json({
             success: true,
-            message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name}`,
+            message: `Schedule Created Successfully, And Mail Send to ${
+              isExistEmail.name
+                ? isExistEmail.name
+                : isExistEmail.OrganizationName
+            }`,
           });
         } catch (error) {
           res.status(400).json({
