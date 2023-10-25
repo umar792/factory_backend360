@@ -48,7 +48,7 @@ module.exports = {
 
         // ----- send email
         try {
-          SendMail({
+          await SendMail({
             email: isExistEmail.email
               ? isExistEmail.email
               : isExistEmail.AdminEmail,
