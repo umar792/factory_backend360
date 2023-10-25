@@ -107,7 +107,29 @@ module.exports = {
   //   =========== git all answer of box1
   box9Answer: async (req, res) => {
     try {
-      const box1Answer = await Box9Model.find();
+      if (req.user.role === "superAdmin") {
+        const box1Answer = await Box9Model.find();
+        res.status(200).json({
+          success: true,
+          box1Answer,
+        });
+      } else {
+        const box1Answer = await Box9Model.find({ user: req.user._id });
+        res.status(200).json({
+          success: true,
+          box1Answer,
+        });
+      }
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  },
+  box9AnswerORG: async (req, res) => {
+    try {
+      const box1Answer = await Box9Model.find({ owner: req.org._id });
       res.status(200).json({
         success: true,
         box1Answer,
@@ -135,6 +157,46 @@ module.exports = {
       res.status(200).json({
         success: true,
         Data,
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  },
+  // =========================== owner delete form
+  deleteForm: async (req, res) => {
+    try {
+      // Check if the logged-in user exists
+
+      // Check if the Box1Model with the specified ID exists
+      const box1 = await Box9Model.findById(req.params.id);
+      if (!box1) {
+        return res.status(400).json({
+          success: false,
+          message: "Form not found.",
+        });
+      }
+
+      // Delete associated files from Cloudinary
+      for (let i = 1; i <= 10; i++) {
+        const answerKey = `Answer${i}`;
+        if (
+          box1[answerKey] &&
+          box1[answerKey].image &&
+          box1[answerKey].image.public_id
+        ) {
+          await cloudinary.v2.uploader.destroy(box1[answerKey].image.public_id);
+        }
+      }
+
+      // Delete the Box1Model from the database
+      await Box9Model.findByIdAndRemove(req.params.id);
+
+      res.status(200).json({
+        success: true,
+        message: "Form Delete successfully.",
       });
     } catch (error) {
       res.status(400).json({

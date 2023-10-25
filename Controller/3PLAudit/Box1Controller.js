@@ -167,33 +167,36 @@ module.exports = {
   // =========================== owner delete form
   deleteForm: async (req, res) => {
     try {
-      const user = await UserModel.findById(req.user._id);
-      if (!user) {
-        return res.status(400).json({
+      // Check if the logged-in user exists
+
+      // Check if the Box1Model with the specified ID exists
+      const box1 = await Box1Model.findById(req.params.id);
+      if (!box1) {
+        return res.status(404).json({
           success: false,
-          message: "Plaese Login",
+          message: "Form not found.",
         });
       }
 
-      if (user.role === "admin") {
-        const formdata = await Box1Model.findById(req.params.id);
-        if (!formdata) {
-          return res.status(400).json({
-            success: false,
-            message: `No FormData found at this id ${req.params.id}`,
-          });
+      // Delete associated files from Cloudinary
+      for (let i = 1; i <= 10; i++) {
+        const answerKey = `Answer${i}`;
+        if (
+          box1[answerKey] &&
+          box1[answerKey].image &&
+          box1[answerKey].image.public_id
+        ) {
+          await cloudinary.v2.uploader.destroy(box1[answerKey].image.public_id);
         }
-        await Box1Model.findByIdAndDelete(req.params.id);
-        res.status(200).json({
-          success: true,
-          message: "Data Delete Successfuly",
-        });
-      } else {
-        res.status(400).json({
-          success: false,
-          message: "You are not admin",
-        });
       }
+
+      // Delete the Box1Model from the database
+      await Box1Model.findByIdAndRemove(req.params.id);
+
+      res.status(200).json({
+        success: true,
+        message: "Form Delete successfully.",
+      });
     } catch (error) {
       res.status(400).json({
         success: false,
@@ -201,7 +204,6 @@ module.exports = {
       });
     }
   },
-
   // ============ get login user form
   loginuserFromData: async (req, res) => {
     try {

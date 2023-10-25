@@ -113,8 +113,8 @@ process.on("unhandledRejection", (error) => {
 // ===================== env
 // PORT = 4000
 
-// BASE_URL = mongodb://127.0.0.1:27017/Factory
-//  BASE_URL = mongodb+srv://muhammadumar0711509:5HxGcbjFkzVP0Gzw@cluster0.gtjl2bx.mongodb.net/?retryWrites=true&w=majority
+// # BASE_URL = mongodb://127.0.0.1:27017/Factory
+// BASE_URL = mongodb+srv://muhammadumar0711509:5HxGcbjFkzVP0Gzw@cluster0.gtjl2bx.mongodb.net/?retryWrites=true&w=majority
 
 // SECRET_KEY = BJDSKFDHIUEYIEUOIEJINCIFHIUEYFIEYUOIEYUIEYIYDIOHDHFIUDHFIUEHF
 
@@ -125,3 +125,13 @@ process.on("unhandledRejection", (error) => {
 // CLOUDINER_KEY = 292239856413154
 
 // CLOUDINERY_SECRET = ERi4S49W2NilKcx9vAHOLQQ6-UI
+
+// SMPT_HOST = smpt.gmail.com
+
+// SMPT_PORT = 465
+
+// SMPT_SERVICE = gmail.com
+
+// SMPT_MAIL = factoryauditor360@gmail.com
+
+// SMPT_PASSWORD = gctd ehen tahs hysx
