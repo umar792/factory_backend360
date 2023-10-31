@@ -71,11 +71,19 @@ module.exports = {
   // ---------get all
   getallAudits: async (req, res) => {
     try {
-      const audits = await AuditModal.find();
-      res.status(200).json({
-        success: true,
-        audits,
-      });
+      if (req.user.role === "superAdmin") {
+        const audits = await AuditModal.find();
+        res.status(200).json({
+          success: true,
+          audits,
+        });
+      } else {
+        const audits = await AuditModal.find({ user: req.user._id });
+        res.status(200).json({
+          success: true,
+          audits,
+        });
+      }
     } catch (error) {
       res.status(400).json({
         success: false,

@@ -5,6 +5,7 @@ const cloudinary = require("cloudinary");
 module.exports = {
   // ---------- create Box1Model
   CreateBox1: async (req, res) => {
+    const { SchedularUserId } = req.body;
     try {
       const answers = [
         req.body.Answer1,
@@ -59,7 +60,7 @@ module.exports = {
         req.body.owner = req.user.user;
       }
 
-      await Box1Model.create(req.body);
+      await Box1Model.create(req.body, SchedularUserId);
       res.status(200).json({
         success: true,
         message: "Data successfully submitted",
@@ -74,6 +75,8 @@ module.exports = {
   // ========== for organization
   CreateBox1Org: async (req, res) => {
     try {
+      const { SchedularUserId } = req.body;
+
       const answers = [
         req.body.Answer1,
         req.body.Answer2,
@@ -113,7 +116,7 @@ module.exports = {
       req.body.user = req.org._id;
       req.body.owner = req.org._id;
 
-      await Box1Model.create(req.body);
+      await Box1Model.create(req.body, SchedularUserId);
       res.status(200).json({
         success: true,
         message: "Data successfully submitted",
@@ -136,7 +139,12 @@ module.exports = {
           box1Answer,
         });
       } else {
-        const box1Answer = await Box1Model.find({ user: req.user._id });
+        const box1Answer = await Box1Model.find({
+          $or: [
+            { user: req.user._id },
+            { schedulerUser: req.user._id.toString() },
+          ],
+        }).populate("user");
         res.status(200).json({
           success: true,
           box1Answer,
@@ -152,7 +160,12 @@ module.exports = {
   // ============ org
   box1AnswerORG: async (req, res) => {
     try {
-      const box1Answer = await Box1Model.find({ owner: req.org._id });
+      const box1Answer = await Box1Model.find({
+        $or: [
+          { owner: req.org._id },
+          { schedulerUser: req.org._id.toString() },
+        ],
+      });
       res.status(200).json({
         success: true,
         box1Answer,

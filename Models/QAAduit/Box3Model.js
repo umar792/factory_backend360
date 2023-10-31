@@ -2,92 +2,100 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const QAbox3Schema = new Schema({
-  Answer1: {
-    answer: {
-      type: String,
-      required: [
-        true,
-        "Plaese Enter Is there a GMP policy. Review policy for completeness.",
-      ],
-    },
-    score: {
-      type: String,
-      required: [true, "Plaese Enter Score"],
-    },
-    comment: {
-      type: String,
-    },
-    image: {
-      public_id: {
+const QAbox3Schema = new Schema(
+  {
+    Answer1: {
+      answer: {
         type: String,
-        // required: true,
+        required: [
+          true,
+          "Plaese Enter Is there a GMP policy. Review policy for completeness.",
+        ],
       },
-      url: {
+      score: {
         type: String,
-        // required: true,
+        required: [true, "Plaese Enter Score"],
       },
-    },
-  },
-  Answer2: {
-    answer: {
-      type: String,
-      required: [
-        true,
-        "Plaese Enter Does GMP policy apply to visitors and contractors",
-      ],
-    },
-    score: {
-      type: String,
-      required: [true, "Plaese Enter Score"],
-    },
-    comment: {
-      type: String,
-    },
-    image: {
-      public_id: {
+      comment: {
         type: String,
       },
-      url: {
-        type: String,
+      image: {
+        public_id: {
+          type: String,
+          // required: true,
+        },
+        url: {
+          type: String,
+          // required: true,
+        },
       },
     },
-  },
-  Answer3: {
-    answer: {
-      type: String,
-      required: [
-        true,
-        "Plaese Enter Are the GMP policies audited on a regular basis",
-      ],
-    },
-    score: {
-      type: String,
-      required: [true, "Plaese Enter Score"],
-    },
-    comment: {
-      type: String,
-    },
-    image: {
-      public_id: {
+    Answer2: {
+      answer: {
+        type: String,
+        required: [
+          true,
+          "Plaese Enter Does GMP policy apply to visitors and contractors",
+        ],
+      },
+      score: {
+        type: String,
+        required: [true, "Plaese Enter Score"],
+      },
+      comment: {
         type: String,
       },
-      url: {
-        type: String,
+      image: {
+        public_id: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
       },
     },
-  },
+    Answer3: {
+      answer: {
+        type: String,
+        required: [
+          true,
+          "Plaese Enter Are the GMP policies audited on a regular basis",
+        ],
+      },
+      score: {
+        type: String,
+        required: [true, "Plaese Enter Score"],
+      },
+      comment: {
+        type: String,
+      },
+      image: {
+        public_id: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
+      },
+    },
 
-  user: {
-    type: mongoose.Types.ObjectId,
-    ref: "user",
-    required: true,
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    owner: {
+      type: mongoose.Types.ObjectId,
+      ref: "organization",
+    },
+    schedulerUser: {
+      type: String,
+    },
   },
-  owner: {
-    type: mongoose.Types.ObjectId,
-    ref: "organization",
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const QAbox3Model = mongoose.model("qabox3", QAbox3Schema);
 module.exports = QAbox3Model;

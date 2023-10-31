@@ -48,26 +48,23 @@ module.exports = {
 
         // ----- send email
         try {
-          await SendMail({
+        await  SendMail({
             email: isExistEmail.email
               ? isExistEmail.email
               : isExistEmail.AdminEmail,
             subject: `FactoryAudit360 Schedule Created`,
-            message: `Hello ${
-              isExistEmail.name
-                ? isExistEmail.name
-                : isExistEmail.OrganizationName
-            } an schedule created by ${
-              req.user.name
-            } for you please login to your account and check more details`,
+            message: `Hello ${isExistEmail.name
+              ? isExistEmail.name
+              : isExistEmail.OrganizationName
+              } an schedule created by ${req.user.name
+              } for you please login to your account and check more details`,
           });
           res.status(200).json({
             success: true,
-            message: `Schedule Created Successfully, And Mail Send to ${
-              isExistEmail.name
-                ? isExistEmail.name
-                : isExistEmail.OrganizationName
-            }`,
+            message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name
+              ? isExistEmail.name
+              : isExistEmail.OrganizationName
+              }`,
           });
         } catch (error) {
           res.status(400).json({
@@ -85,26 +82,23 @@ module.exports = {
         });
         // ----- send email
         try {
-          SendMail({
+          await  SendMail({
             email: isExistEmail.email
               ? isExistEmail.email
               : isExistEmail.AdminEmail,
             subject: `FactoryAudit360 Schedule Created`,
-            message: `Hello ${
-              isExistEmail.name
-                ? isExistEmail.name
-                : isExistEmail.OrganizationName
-            } an schedule created by ${
-              req.user.name
-            } for you please login to your account and check more details`,
+            message: `Hello ${isExistEmail.name
+              ? isExistEmail.name
+              : isExistEmail.OrganizationName
+              } an schedule created by ${req.user.name
+              } for you please login to your account and check more details`,
           });
           res.status(200).json({
             success: true,
-            message: `Schedule Created Successfully, And Mail Send to ${
-              isExistEmail.name
-                ? isExistEmail.name
-                : isExistEmail.OrganizationName
-            }`,
+            message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name
+              ? isExistEmail.name
+              : isExistEmail.OrganizationName
+              }`,
           });
         } catch (error) {
           res.status(400).json({
@@ -162,26 +156,23 @@ module.exports = {
       });
       // ----- send email
       try {
-        SendMail({
+        await  SendMail({
           email: isExistEmail.email
             ? isExistEmail.email
             : isExistEmail.AdminEmail,
           subject: `FactoryAudit360 Schedule Created`,
-          message: `Hello ${
-            isExistEmail.name
-              ? isExistEmail.name
-              : isExistEmail.OrganizationName
-          } an schedule created by ${
-            req.org.OrganizationName
-          } for you please login to your account and check more details`,
+          message: `Hello ${isExistEmail.name
+            ? isExistEmail.name
+            : isExistEmail.OrganizationName
+            } an schedule created by ${req.org.OrganizationName
+            } for you please login to your account and check more details`,
         });
         res.status(200).json({
           success: true,
-          message: `Schedule Created Successfully, And Mail Send to ${
-            isExistEmail.name
-              ? isExistEmail.name
-              : isExistEmail.OrganizationName
-          }`,
+          message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name
+            ? isExistEmail.name
+            : isExistEmail.OrganizationName
+            }`,
         });
       } catch (error) {
         res.status(400).json({
@@ -217,7 +208,9 @@ module.exports = {
           schedules: schedules,
         });
       } else {
-        const schedules = await ScheduleModal.find({ owner: req.user.user });
+        const schedules = await ScheduleModal.find({
+          $or: [{ user: req.user._id }, { email: req.user.email }]
+        });
         // Check if there are no schedules
         if (schedules.length === 0) {
           return res.status(404).json({

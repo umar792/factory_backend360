@@ -132,7 +132,12 @@ module.exports = {
           box1Answer,
         });
       } else {
-        const box1Answer = await Box2Model.find({ user: req.user._id });
+        const box1Answer = await Box2Model.find({
+          $or: [
+            { user: req.user._id },
+            { schedulerUser: req.user._id.toString() },
+          ],
+        }).populate("user");
         res.status(200).json({
           success: true,
           box1Answer,
@@ -152,7 +157,6 @@ module.exports = {
         success: true,
         box1Answer,
       });
-      s;
     } catch (error) {
       res.status(400).json({
         success: false,
@@ -172,7 +176,12 @@ module.exports = {
         });
       }
 
-      const Data = await Box2Model.find({ user: user._id });
+      const Data = await Box2Model.find({
+        $or: [
+          { user: req.user._id },
+          { schedulerUser: req.user._id.toString() },
+        ],
+      });
       res.status(200).json({
         success: true,
         Data,

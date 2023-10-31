@@ -26,6 +26,9 @@ const Box9Schema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "organization",
     },
+    schedulerUser: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

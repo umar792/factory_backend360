@@ -132,7 +132,12 @@ module.exports = {
           box1Answer,
         });
       } else {
-        const box1Answer = await Box8Model.find({ user: req.user._id });
+        const box1Answer = await Box8Model.find({
+          $or: [
+            { user: req.user._id },
+            { schedulerUser: req.user._id.toString() },
+          ],
+        }).populate("user");
         res.status(200).json({
           success: true,
           box1Answer,

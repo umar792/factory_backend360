@@ -130,7 +130,12 @@ module.exports = {
           box1Answer,
         });
       } else {
-        const box1Answer = await Box7Model.find({ user: req.user._id });
+        const box1Answer = await Box7Model.find({
+          $or: [
+            { user: req.user._id },
+            { schedulerUser: req.user._id.toString() },
+          ],
+        }).populate("user");
         res.status(200).json({
           success: true,
           box1Answer,
@@ -145,7 +150,12 @@ module.exports = {
   },
   box7AnswerORG: async (req, res) => {
     try {
-      const box1Answer = await Box7Model.find({ owner: req.org._id });
+      const box1Answer = await Box7Model.find({
+        $or: [
+          { owner: req.org._id },
+          { schedulerUser: req.org._id.toString() },
+        ],
+      });
       res.status(200).json({
         success: true,
         box1Answer,
