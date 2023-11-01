@@ -15,6 +15,10 @@ const ScheduleSchema = new Schema({
     type: String,
     required: [true, "Plaese Enter Schedule Email"],
   },
+  link: {
+    type: String,
+    required: [true, "Plaese Select Any Audit Box"],
+  },
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User",
@@ -22,6 +26,10 @@ const ScheduleSchema = new Schema({
   owner: {
     type: mongoose.Types.ObjectId,
     ref: "User",
+  },
+  status: {
+    type: String,
+    default: "Run",
   },
 });
 

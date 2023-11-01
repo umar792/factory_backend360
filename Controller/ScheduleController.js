@@ -7,7 +7,7 @@ module.exports = {
   // ------- create Schedule
   createSchedule: async (req, res) => {
     try {
-      const { date, time, email } = req.body;
+      const { date, time, email, link } = req.body;
       if (!date) {
         return res.status(400).json({
           success: false,
@@ -42,29 +42,33 @@ module.exports = {
           date,
           time,
           email,
+          link,
           user: req.user._id,
           owner: req.user._id,
         });
 
         // ----- send email
         try {
-        await  SendMail({
+          await SendMail({
             email: isExistEmail.email
               ? isExistEmail.email
               : isExistEmail.AdminEmail,
             subject: `FactoryAudit360 Schedule Created`,
-            message: `Hello ${isExistEmail.name
-              ? isExistEmail.name
-              : isExistEmail.OrganizationName
-              } an schedule created by ${req.user.name
-              } for you please login to your account and check more details`,
+            message: `Hello ${
+              isExistEmail.name
+                ? isExistEmail.name
+                : isExistEmail.OrganizationName
+            } an schedule created by ${
+              req.user.name
+            } for you please login to your account and check more details`,
           });
           res.status(200).json({
             success: true,
-            message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name
-              ? isExistEmail.name
-              : isExistEmail.OrganizationName
-              }`,
+            message: `Schedule Created Successfully, And Mail Send to ${
+              isExistEmail.name
+                ? isExistEmail.name
+                : isExistEmail.OrganizationName
+            }`,
           });
         } catch (error) {
           res.status(400).json({
@@ -82,23 +86,26 @@ module.exports = {
         });
         // ----- send email
         try {
-          await  SendMail({
+          await SendMail({
             email: isExistEmail.email
               ? isExistEmail.email
               : isExistEmail.AdminEmail,
             subject: `FactoryAudit360 Schedule Created`,
-            message: `Hello ${isExistEmail.name
-              ? isExistEmail.name
-              : isExistEmail.OrganizationName
-              } an schedule created by ${req.user.name
-              } for you please login to your account and check more details`,
+            message: `Hello ${
+              isExistEmail.name
+                ? isExistEmail.name
+                : isExistEmail.OrganizationName
+            } an schedule created by ${
+              req.user.name
+            } for you please login to your account and check more details`,
           });
           res.status(200).json({
             success: true,
-            message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name
-              ? isExistEmail.name
-              : isExistEmail.OrganizationName
-              }`,
+            message: `Schedule Created Successfully, And Mail Send to ${
+              isExistEmail.name
+                ? isExistEmail.name
+                : isExistEmail.OrganizationName
+            }`,
           });
         } catch (error) {
           res.status(400).json({
@@ -117,7 +124,7 @@ module.exports = {
   // ============ schedule created by oeganization admin
   createSchedulebyOrganization: async (req, res) => {
     try {
-      const { date, time, email } = req.body;
+      const { date, time, email, link } = req.body;
 
       if (!date) {
         return res.status(400).json({
@@ -151,28 +158,32 @@ module.exports = {
         date,
         time,
         email,
+        link,
         user: req.org._id,
         owner: req.org._id,
       });
       // ----- send email
       try {
-        await  SendMail({
+        await SendMail({
           email: isExistEmail.email
             ? isExistEmail.email
             : isExistEmail.AdminEmail,
           subject: `FactoryAudit360 Schedule Created`,
-          message: `Hello ${isExistEmail.name
-            ? isExistEmail.name
-            : isExistEmail.OrganizationName
-            } an schedule created by ${req.org.OrganizationName
-            } for you please login to your account and check more details`,
+          message: `Hello ${
+            isExistEmail.name
+              ? isExistEmail.name
+              : isExistEmail.OrganizationName
+          } an schedule created by ${
+            req.org.OrganizationName
+          } for you please login to your account and check more details`,
         });
         res.status(200).json({
           success: true,
-          message: `Schedule Created Successfully, And Mail Send to ${isExistEmail.name
-            ? isExistEmail.name
-            : isExistEmail.OrganizationName
-            }`,
+          message: `Schedule Created Successfully, And Mail Send to ${
+            isExistEmail.name
+              ? isExistEmail.name
+              : isExistEmail.OrganizationName
+          }`,
         });
       } catch (error) {
         res.status(400).json({
@@ -209,7 +220,7 @@ module.exports = {
         });
       } else {
         const schedules = await ScheduleModal.find({
-          $or: [{ user: req.user._id }, { email: req.user.email }]
+          $or: [{ user: req.user._id }, { email: req.user.email }],
         });
         // Check if there are no schedules
         if (schedules.length === 0) {
@@ -350,6 +361,38 @@ module.exports = {
         success: true,
         message: "Schedule updated successfully",
         updatedSchedule: schedule,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "An error occurred while updating the schedule",
+        error: error.message,
+      });
+    }
+  },
+
+  // ====== update status
+  updateStatus: async (req, res) => {
+    try {
+      const { id, status } = req.body;
+      if (!status) {
+        return res.status(400).json({
+          success: false,
+          message: "Please Enter Status",
+        });
+      }
+      const data = await ScheduleModal.findById(id);
+      if (!data) {
+        return res.status(400).json({
+          success: false,
+          message: "Schedule Not Found",
+        });
+      }
+      data.status = status;
+      await data.save();
+      res.status(200).json({
+        success: true,
+        message: "Status Update Successfuly",
       });
     } catch (error) {
       res.status(500).json({
