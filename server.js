@@ -16,7 +16,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINERY_SECRET,
 });
 
-// ------------ body-parser
+// --------- body-parser
 var bodyParser = require("body-parser");
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
