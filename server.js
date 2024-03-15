@@ -9,7 +9,7 @@ app.use(cors());
 // ---------dotenv
 require("dotenv").config();
 
-// ======== cloudinary
+// ====== cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINERY_NAME,
   api_key: process.env.CLOUDINER_KEY,
