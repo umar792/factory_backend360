@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cloudinary = require("cloudinary");
 
-// ----cors
+// ---------cors
 const cors = require("cors");
 app.use(cors());
 
