@@ -1,7 +1,7 @@
 const AuditModal = require("../Models/AuditModal");
 
 module.exports = {
-  // -- create Aduit
+  // ------- create Aduit
   createAduit: async (req, res) => {
     try {
       const { name, reason, date } = req.body;
